@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Docker Instance Manager</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="top-bar">
+        <div class="logo-section">
+          <i class="fa-brands fa-docker fa-2x logo-icon"></i>
+          <h1>Container Manager</h1>
+        </div>
+        <div>
+          <button id="openAboutBtn" class="btn btn-secondary">
+            <i class="fa-solid fa-info-circle"></i> About
+          </button>
+          <button id="openModalBtn" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> New Container
+          </button>
+        </div>
+      </header>
+
+      <main class="dashboard">
+        <!-- Dashboard Summary -->
+        <div class="dashboard-summary">
+          <div class="summary-card">
+            <h3>Total Containers</h3>
+            <span id="totalContainers">0</span>
+          </div>
+          <div class="summary-card">
+            <h3>Running</h3>
+            <span id="runningContainers">0</span>
+          </div>
+          <div class="summary-card">
+            <h3>Stopped</h3>
+            <span id="stoppedContainers">0</span>
+          </div>
+        </div>
+
+        <!-- Container Table -->
+        <div class="card">
+          <div class="table-responsive">
+            <table id="containerTable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>CPU Limit</th>
+                  <th>RAM Limit</th>
+                  <th>CPU Usage</th>
+                  <th>RAM Usage</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal for Creating Container -->
+    <div id="modal" class="modal">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fa-brands fa-docker"></i> Deploy Container</h2>
+          <span class="close-icon" id="closeModalX">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="nameInput">Container Name</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-cube"></i>
+              <input
+                type="text"
+                id="nameInput"
+                placeholder="e.g. my-nginx-app"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cpuInput">CPU Cores</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-microchip"></i>
+                <input
+                  type="number"
+                  id="cpuInput"
+                  step="0.1"
+                  min="0.1"
+                  value="1"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="ramInput">RAM Allocation</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-memory"></i>
+                <select id="ramInput">
+                  <option value="64m">64 MB</option>
+                  <option value="128m" selected>128 MB</option>
+                  <option value="256m">256 MB</option>
+                  <option value="512m">512 MB</option>
+                  <option value="1g">1 GB</option>
+                  <option value="2g">2 GB</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="closeModalBtn" class="btn btn-secondary">Cancel</button>
+          <button id="createBtn" class="btn btn-primary">Create & Run</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fa-solid fa-info-circle"></i> About This Project</h2>
+          <span class="close-icon" id="closeAboutX">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p>
+            <strong>Purpose:</strong> This project is a Docker Container Manager
+            to visually manage containers, see CPU/RAM usage, and
+            start/stop/delete them easily.
+          </p>
+          <p>
+            <strong>What I Learned:</strong> HTML, CSS, JS DOM manipulation,
+            Fetch API, modern button designs, progress bars, and working with
+            REST APIs.
+          </p>
+          <p><strong>Features Implemented:</strong></p>
+          <ul>
+            <li>Create new containers</li>
+            <li>Start/Stop/Delete containers</li>
+            <li>Live CPU/RAM usage visualization</li>
+            <li>Responsive design and modern buttons</li>
+            <li>About page for project documentation</li>
+          </ul>
+          <p>
+            <strong>How to Run:</strong> Run a backend API on
+            <code>http://localhost:8000</code> providing container info, then
+            open this HTML file in your browser.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="closeAboutBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
